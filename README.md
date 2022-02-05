@@ -120,6 +120,7 @@ TODO(lightning-auriga): create conda package and provide conda installation inst
   - [boost program_options](https://www.boost.org/doc/libs/1_75_0/doc/html/program_options.html)
   - [boost filesystem/system](https://www.boost.org/doc/libs/1_75_0/libs/filesystem/doc/index.htm)
   - [yaml-cpp](https://github.com/jbeder/yaml-cpp)
+  - [cppunit](https://freedesktop.org/wiki/Software/cppunit/)
 
 #### Build
 
