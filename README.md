@@ -115,7 +115,9 @@ TODO(cpalmer718): create conda package and provide conda installation instructio
   - git >= 2.28.0
   - nodejs (for commitizen)
   - pre-commit
-  - associated linting tools for C++: cppcheck, clang-format
+  - associated linting tools for C++:
+    - cppcheck
+	- clang-format
   - [boost headers](https://www.boost.org)
   - [boost program_options](https://www.boost.org/doc/libs/1_75_0/doc/html/program_options.html)
   - [boost filesystem/system](https://www.boost.org/doc/libs/1_75_0/libs/filesystem/doc/index.htm)
