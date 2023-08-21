@@ -56,10 +56,10 @@ When creating pipelines, we often want to be able to do three things:
    - the steps we didn't want to change are still working as expected
 
 In all but the most basic pipelines, these issues can be very challenging
-to rigorously evaluate with end-to-end tests. Most commonly, when testing, 
-if our end-to-end test output changes, we have to manually track back those changes 
-step by step until we find the step that has introduced some difference; or just as often, 
-we note the output still looks" pretty good" and we assume that means the system is 
+to rigorously evaluate with end-to-end tests. Most commonly, when testing,
+if our end-to-end test output changes, we have to manually track back those changes
+step by step until we find the step that has introduced some difference; or just as often,
+we note the output still looks" pretty good" and we assume that means the system is
 working as intended.
 
 Unfortunately, those assumptions don't hold in many situations, and we often suspect
@@ -75,7 +75,7 @@ extracting those units into test code, so they can focus on the debugging they n
 
 ### Alternatives
 
-[snakemake](https://snakemake.readthedocs.io/en/stable/) has internal functionality that 
+[snakemake](https://snakemake.readthedocs.io/en/stable/) has internal functionality that
 addresses a similar problem, in its
 [--generate-unit-tests](https://snakemake.readthedocs.io/en/stable/snakefiles/testing.html)
 option. However, in our testing, that option does not work out of the box, except for
@@ -85,11 +85,11 @@ with certain modification to increase the pipeline structures with which our opt
 compatible. Specifically:
 
  - our method creates synthetic snakefiles with just a single rule present along with
- python infrastructure; this substantially reduces the time required to construct the 
+ python infrastructure; this substantially reduces the time required to construct the
  DAG in the test cases
  - each rule unit is tested within its own restricted test space, with all its inputs
  and outputs contained within
- - the user can flag external files and directories (config, manifest, scripts, 
+ - the user can flag external files and directories (config, manifest, scripts,
  environments, etc.) that can be ported into the per-unit restricted test spaces.
  As such, the number of pipeline conventions supported by the program out of the box
  is dramatically increased
@@ -131,31 +131,29 @@ By default, a build process involving a [conda](https://docs.conda.io/en/latest/
   - if you wish to use `conda` and it's not currently available, you can install it with the instructions [here](https://docs.conda.io/en/latest/miniconda.html)
   - navigate into your project directory (snakemake_unit_tests)
   - create the `conda` environment for installation as follows:
-  
+
      `conda env create -f environment.yaml`
   - activate the conda environment:
-  
+
      `conda activate snakemake_unit_tests-env`
   - (one time only per environment) install `commitizen`:
-  
+
      `npm install -g commitizen cz-conventional-changelog`
   - (one time only per environment) install `pre-commit` linters:
-  
+
      `pre-commit install`
 
   - update (create) the necessary `configure` scripts with `autoreconf`:
-  
+
      `autoreconf --force --install`
-	 
+
      - note that this can also be run with `./generate.bash` inside the repo
   - run `configure`:
-  
-	 `./configure --with-boost=${CONDA_PREFIX} --with-boost-libdir=${CONDA_PREFIX}/lib`
+
+     `CC=${CONDA_PREFIX}/bin/x86_64-conda-linux-gnu-gcc CXX=${CONDA_PREFIX}/bin/x86_64-conda-linux-gnu-g++ ./configure --with-boost=${CONDA_PREFIX} --with-boost-libdir=${CONDA_PREFIX}/lib --with-yaml-cpp=${CONDA_PREFIX}`
 
 	 - if you are planning on installing software to a local directory, run instead `./configure --prefix=/install/dir [...]`
-	 - periodically there are some incompatibility issues between `configure` and `conda`. if so, you may need to override
-	   some default locations detected by `configure`. for example, you might override the detected compiler with:
-	   `CC=gcc CXX=g++ ./configure [...]`
+
   - run `make CPPFLAGS=""`
 	 - this is a non-standard `make` invocation. the reason this is included is because the project
 	   is configured to specifically use a `boost` installation in the accompanying `conda` environment.
@@ -167,9 +165,7 @@ By default, a build process involving a [conda](https://docs.conda.io/en/latest/
 	   as follows: `make CPPFLAGS="" check`
 
   - if desired, run `make install`. if permissions issues are reported, see above for reconfiguring with `./configure --prefix`.
-     - as above, if you run installation without compiling first, you will again need to override `CPPFLAGS`
-	   as follows: `make CPPFLAGS="" check`
-  
+
 ## Usage
 
 To see available command line options, the program can be run as follows
@@ -298,8 +294,8 @@ and the names of the options in those different contexts are listed when applica
   - notes: some rules are simply not suitable for unit tests. An example might be a rule that downloads
     50GB of reference sequence data from UCSC. In that case, if the rule is present in the `snakemake-log`
 	and you don't want to remove the rule from that log, you can add the rule name here and
-	`snakemake_unit_tests` will skip over it when emitting tests. Another common use case for this 
-	exclusion is when intermediate files from the pipeline run are not present, most commonly due 
+	`snakemake_unit_tests` will skip over it when emitting tests. Another common use case for this
+	exclusion is when intermediate files from the pipeline run are not present, most commonly due
 	to removal as temp files. This behavior of [snakemake](https://snakemake.readthedocs.io/en/stable/)
 	can be disabled with `--notemp`, but if that is not desired or not feasible, impacted rules
 	can be added to the exclusion list. Note that any rule with the missing file as an *input*
@@ -307,14 +303,14 @@ and the names of the options in those different contexts are listed when applica
 	`snakemake_unit_tests` will report any such missing files to the command line as an error,
 	so you will have an opportunity to either rerun the upstream pipeline or iteratively add
 	impacted rules to `exclude-rules` as desired.
-	
+
 ### Example Vignettes
 
 #### A Standard Run
 
 - Create a pipeline, or choose one for unit testing
 - Run the pipeline end-to-end and capture log output:
-  
+
   `snakemake -j1 -F --notemp > run.log 2>&1`
 
 - Set configuration options for your pipeline run
