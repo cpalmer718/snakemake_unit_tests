@@ -22,6 +22,18 @@ jobs:
           name: build_and_test
           command: |
             conda install -c conda-forge -y curl gnupg
+            ./generate.bash
+            CC=${CONDA_PREFIX}/bin/x86_64-conda-linux-gnu-gcc CXX=${CONDA_PREFIX}/bin/x86_64-conda-linux-gnu-g++ ./configure --with-boost=${CONDA_PREFIX} --with-boost-libdir=${CONDA_PREFIX}/lib --with-yaml-cpp=${CONDA_PREFIX}
+            make -j2 CXXFLAGS=" --coverage -fprofile-arcs -ftest-coverage -fPIC"
+            make -j2 check
+            find snakemake_unit_tests -name "*gcda" -delete
+            ./test_suite.out
+            find snakemake_unit_tests -name "*Test*.gc*" -delete
+            rm snakemake_unit_tests/test_suite.gc*
+            ${CONDA_PREFIX}/bin/x86_64-conda-linux-gnu-gcov -r $(ls snakemake_unit_tests/*gcda | awk '! /test_suite/' | sed 's/gcda/cc/g')
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov -R .
 
 
 # Invoke jobs via workflows
