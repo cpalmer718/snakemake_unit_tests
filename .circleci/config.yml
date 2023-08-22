@@ -21,7 +21,7 @@ jobs:
       - run:
           name: build_and_test
           command: |
-            mamba install -c conda-forge -y curl gnupg
+            conda install -c conda-forge -y curl gnupg
             ./generate.bash
             ./configure --prefix=/opt/conda/envs/snakemake-gcc --with-boost=$CONDA_PREFIX --with-boost-libdir=$CONDA_PREFIX/lib
             make -j2 CXXFLAGS=" --coverage -fprofile-arcs -ftest-coverage -fPIC"
