@@ -25,8 +25,6 @@ rm -Rf "$OUTPUTDIR"
 ## run test, dumping output into appropriate directory
 "$SNAKEMAKE_UNIT_TESTS" --update-all -i "$INSTDIR" -l "$INPUTDIR/run.log" -o "$OUTPUTDIR" -p "$INPUTDIR" -s "$INPUTDIR/workflow/Snakefile" > /dev/null 2>&1
 if [[ "$?" != "0" ]] ; then
-    RES=$("$SNAKEMAKE_UNIT_TESTS" --update-all -i "$INSTDIR" -l "$INPUTDIR/run.log" -o "$OUTPUTDIR" -p "$INPUTDIR" -s "$INPUTDIR/workflow/Snakefile")
-    echo "${RES}"
     echo "not ok - $TESTDESCRIPTION primary run failed"
     exit 0
 fi

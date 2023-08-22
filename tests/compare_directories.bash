@@ -20,7 +20,6 @@ do
     else
 	actualdiff=$(diff $file $actual | wc -l)
 	if [[ "$actualdiff" -gt 0 ]] ; then
-        echo "$actualdiff"
 	    echo "not ok - $TESTDESCRIPTION expected file $file differs from observed $actual"
 	    exit 3
 	fi
