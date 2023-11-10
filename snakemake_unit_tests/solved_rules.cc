@@ -231,12 +231,15 @@ void snakemake_unit_tests::solved_rules::find_missing_rules(const std::vector<st
   if (!target) throw std::runtime_error("null pointer to solved_rules::find_missing_rules");
   // target error pattern is: "'(Rules|Checkpoints)' object has no attribute 'RULENAME'"
   const boost::regex rule_missing("^.*'Rules' object has no attribute '([^']+)'.*\n$");
+  // new in late snakemake 7: yet another message syntax for missing rulesdot
+  const boost::regex rule_missing_snakemake7("^.*Rule ([^ ]+) is not defined in this workflow.*\n$");
   const boost::regex checkpoint_missing("^.*'Checkpoints' object has no attribute '([^']+)'.*\n$");
   const boost::regex any_error("^.*[eE][xX][cC][eE][pP][tT][iI][oO][nN].*\n?$");
   bool found_error = false, found_permitted_error = false;
   for (std::vector<std::string>::const_iterator iter = snakemake_exec.begin(); iter != snakemake_exec.end(); ++iter) {
     boost::smatch regex_result;
     if (boost::regex_match(*iter, regex_result, rule_missing) ||
+        boost::regex_match(*iter, regex_result, rule_missing_snakemake7) ||
         boost::regex_match(*iter, regex_result, checkpoint_missing)) {
       target->insert(std::make_pair(regex_result[1].str(), true));
       found_permitted_error = true;
