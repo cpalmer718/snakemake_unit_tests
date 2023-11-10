@@ -1,6 +1,6 @@
 # snakemake unit tests
 
-[![CircleCI](https://circleci.com/gh/lightning-auriga/snakemake_unit_tests/tree/default.svg?style=svg&circle-token=6a53bc0bf5f71761a3ed0b50acc92c4090ee337c)](https://circleci.com/gh/lightning-auriga/snakemake_unit_tests/tree/default)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/lightning-auriga/snakemake_unit_tests/tree/default.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/lightning-auriga/snakemake_unit_tests/tree/default)
 
 [![codecov](https://codecov.io/gh/lightning-auriga/snakemake_unit_tests/branch/default/graph/badge.svg?token=OHF3V3FZN6)](https://codecov.io/gh/lightning-auriga/snakemake_unit_tests)
 
